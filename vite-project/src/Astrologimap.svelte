@@ -3,10 +3,8 @@
     import Header from "./header.svelte";
     import Footer from "./footer.svelte";
 
-    let birthDate = '';
-    let answer = '';
-
-    let Datebirt = false;
+    let birthDate;
+    let answer;
 
     function opendataberd () {
         var modal = document.getElementById('heppybey')
@@ -18,69 +16,85 @@
         modal.style.display = 'none';
     }
 
-    function submitForm() {
-        // Получаем данные из локального хранилища
-        const email = localStorage.getItem('email');
-        const idToken = localStorage.getItem('idToken');
+    async function submitForm() {
+        const token = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
-
-        // Формируем данные для отправки на бэкенд
-        const formData = {
-            email,
-            idToken,
-            accessToken,
-            birthDate,
-            answer
-        };
-        
-        // Отправляем данные на бэкенд
-        fetch('http://127.0.0.1:5000/register', {
+        const response = await fetch('http://127.0.0.1:5000/update_user_info', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',// Отправка токена в заголовке
             },
-            body: JSON.stringify(formData)
-        }).then(response => {
-            // Обработка ответа от бэкенда (если необходимо)
-            console.log('Данные отправлены успешно');
-            Datebirt = true;
-            closeCreateSectionModal(); // Закрываем модальное окно после отправки
-        }).catch(error => {
-            console.error('Ошибка отправки данных:', error);
+            body: JSON.stringify({
+                birthDate,
+                bornAtNight: answer, // 'yes' или 'no'
+                idTokenHash: token,
+                accessToken
+            })
         });
+
+        const responseData = await response.json();
+        if (responseData.success) {
+            showModal();
+            // Обработка успешного обновления данных пользователя
+            console.log(responseData.message);
+        } else {
+            // Обработка ошибок
+            console.error(responseData.error);
+        }
     }
 
-    onMount(async () => {
-        const idToken = localStorage.getItem('idToken');
-        const accessToken = localStorage.getItem('accessToken');
-        const email = localStorage.getItem('email');
-        try {
-            const response = await fetch('http://127.0.0.1:5000//api/checldatebird', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    // Здесь можно отправить дополнительные данные для проверки
-                    // Например, можете отправить идентификатор пользователя или его токен
-                    idToken,
-                    accessToken,
-                    email
-                })
-            });
 
-            if (response.ok) {
-                const data = await response.json();
-                // В этом месте вы можете обработать ответ от сервера
-                // Например, если пользователь найден, можете выполнить определенные действия
-            } else {
-                console.error('Ошибка при проверке пользователя:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Ошибка при отправке запроса:', error);
-        }
-    });
+    function showModal() {
+        const modal = document.getElementById('optionsModal');
+        modal.style.display = 'block';
+    }
 
+    function closeModal() {
+        const modal = document.getElementById('optionsModal');
+        modal.style.display = 'none';
+    }
+
+    function showAllAboutYou() {
+        window.location.href = '/AllAboutYou';
+        // Логика отображения информации о личном солярном годе
+        console.log("Личный солярный год");
+        closeModal();
+    }
+
+    function showCompatibility() {
+        document.getElementById('compatibilityModal').style.display = 'block';
+        // Логика отображения информации о совместимости
+        console.log("Совместимость");
+        closeModal();
+    }
+
+    function showChildNumerology() {
+        window.location.href = '/ChildNumerology';
+        // Логика отображения информации о детской нумерологии
+        console.log("Детская нумерология");
+        closeModal();
+    }
+
+    function showSolirnuy() {
+        window.location.href = '/SolarYear';
+        // Логика отображения информации об Astrologi
+        console.log("солярном год");
+        closeModal();
+    }
+
+
+    function closeModals() {
+        document.getElementById('optionsModal').style.display = 'none';
+        document.getElementById('compatibilityModal').style.display = 'none';
+    }
+
+    function savePartnerData() {
+        const partnerBirthDate = document.getElementById('partnerBirthDate').value;
+        const partnerBornAtNight = document.getElementById('partnerBornAtNight').checked;
+        localStorage.setItem('partnerBirthDate', partnerBirthDate);
+        localStorage.setItem('partnerBornAtNight', partnerBornAtNight);
+        window.location.href = '/Sovmestimost';
+    }
 </script>
 
 <style>
@@ -107,6 +121,7 @@
         padding: 20px;
         border: 1px solid #888;
         width: 50%;
+        height: 300px;
     }
 
     .close {
@@ -116,11 +131,14 @@
         font-weight: bold;
         cursor: pointer;
     }
+
+    .form {
+        display: flex;
+    }
 </style>
 
 <main>
     <Header/>
-    {#if !Datebirt}
     <div class="smotr">
         <button on:click={opendataberd}>Смотреть астральную карту</button>
     </div>
@@ -128,7 +146,7 @@
         <div class="modal-content">
             <span class="close" on:click={closeCreateSectionModal}>&times;</span>
             <h1>Заполните форму</h1>
-            <form on:submit|preventDefault={submitForm}>
+            <form on:submit|preventDefault={submitForm} class="form">
                 <label>Дата рождения:</label>
                 <input type="date" bind:value={birthDate} required>
                 
@@ -142,9 +160,35 @@
             </form>
         </div>
     </div>
-    {:else}
-        <h1>Hello</h1>
-    {/if}
+
+    <div id="optionsModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" on:click={closeModal()}>&times;</span>
+            <h1>Выберите опцию</h1>
+            <ul>
+                <li><button on:click={showAllAboutYou}>Все о личном</button></li>
+                <li><button on:click={showSolirnuy}>солярном год</button></li>
+                <li><button on:click={showCompatibility}>Совместимость</button></li>
+                <li><button on:click={showChildNumerology}>Детская нумерология</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="compatibilityModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" on:click={closeModals()}>&times;</span>
+            <h1>Введите данные партнера</h1>
+            <div>
+                <label for="partnerBirthDate">Дата рождения партнера:</label>
+                <input type="date" id="partnerBirthDate">
+            </div>
+            <div>
+                <label for="partnerBornAtNight">Рожден с 0 до 3:</label>
+                <input type="checkbox" id="partnerBornAtNight">
+            </div>
+            <button on:click={savePartnerData}>Сохранить</button>
+        </div>
+    </div>
 
     <div>
         <p>Астральная карта представляет собой индивидуальное астрологическое изображение небесного свода в определенный момент времени и места на Земле. Эта карта является инструментом астрологии, который используется для анализа и интерпретации натального гороскопа — карты небесного свода, созданной на основе точной даты, времени и места рождения человека.</p>
