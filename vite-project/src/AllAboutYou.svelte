@@ -6,7 +6,7 @@ async function fetchCharacterInfo() {
     const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
     const accessToken = localStorage.getItem('accessToken');
 
-    const response = await fetch('http://127.0.0.1:5000/getCharacterInfo', {
+    const response = await fetch('https://Astrologi.onrender.com/getCharacterInfo', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ async function fetchSposobnoctiAndMission() {
         const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
 
-        const response = await fetch('http://127.0.0.1:5000/SposobnoctiAndMission', {
+        const response = await fetch('https://Astrologi.onrender.com/SposobnoctiAndMission', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ async function fetchSelfRealizationConditions() {
         const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
 
-        const response = await fetch('http://127.0.0.1:5000/selfRealizationConditions', {
+        const response = await fetch('https://Astrologi.onrender.com/selfRealizationConditions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ async function fetchRecommendationsAndWarnings() {
         const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
 
-        const response = await fetch('http://127.0.0.1:5000/recommendationsAndWarnings', {
+        const response = await fetch('https://Astrologi.onrender.com/recommendationsAndWarnings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ async function fetchMainProblem() {
         const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
 
-        const response = await fetch('http://127.0.0.1:5000/mainProblem', {
+        const response = await fetch('https://Astrologi.onrender.com/mainProblem', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ async function fetchMainProblem() {
         const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
 
-        const response = await fetch('http://127.0.0.1:5000/healthInfo', {
+        const response = await fetch('https://Astrologi.onrender.com/healthInfo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ async function fetchMainProblem() {
         const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
 
-        const response = await fetch('http://127.0.0.1:5000/professionInfo', {
+        const response = await fetch('https://Astrologi.onrender.com/professionInfo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -188,7 +188,7 @@ async function fetchMainProblem() {
         const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
 
-        const response = await fetch('http://127.0.0.1:5000/approachesAndMethods', {
+        const response = await fetch('https://Astrologi.onrender.com/approachesAndMethods', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

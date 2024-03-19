@@ -11,7 +11,7 @@
         webAuth = new Auth0.WebAuth({
             domain: 'dev-whbba5qnfveb88fc.us.auth0.com',
             clientID: 'ab7q8GJ0KvwbL0zAC6UwwLaQcXjgbUGT',
-            redirectUri: 'http://localhost:5173/',
+            redirectUri: 'https://Astrologi.onrender.com/',
             responseType: 'token id_token',
             scope: 'openid profile email',
         });
@@ -30,7 +30,7 @@
                     id_token_hash: authResult.idToken,
                     accessToken: authResult.accessToken
                 };
-                fetch('http://127.0.0.1:5000/test', {
+                fetch('https://Astrologi.onrender.com/test', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

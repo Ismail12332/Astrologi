@@ -6,7 +6,7 @@
         const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
 
-    const response = await fetch('http://127.0.0.1:5000/partner1Info', {
+    const response = await fetch('https://Astrologi.onrender.com/partner1Info', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ async function fetchPartner2Info() {
         const partnerBirthDate = localStorage.getItem('partnerBirthDate'); // Дата рождения партнера 2 из локального хранилища
         const partnerBornAtNight = localStorage.getItem('partnerBornAtNight'); // Булево значение, был ли рожден партнер 2 с 0 до 3
 
-        const response = await fetch('http://127.0.0.1:5000/partner2Info', {
+        const response = await fetch('https://Astrologi.onrender.com/partner2Info', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ async function fetchPartner2Info() {
         const partnerBirthDate = localStorage.getItem('partnerBirthDate'); // Дата рождения партнера 2 из локального хранилища
         const partnerBornAtNight = localStorage.getItem('partnerBornAtNight'); // Булево значение, был ли рожден партнер 2 с 0 до 3
 
-        const response = await fetch('http://127.0.0.1:5000/compatibility', {
+        const response = await fetch('https://Astrologi.onrender.com/compatibility', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

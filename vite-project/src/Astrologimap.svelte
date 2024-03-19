@@ -19,7 +19,7 @@
     async function submitForm() {
         const token = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
-        const response = await fetch('http://127.0.0.1:5000/update_user_info', {
+        const response = await fetch('https://Astrologi.onrender.com/update_user_info', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',// Отправка токена в заголовке

@@ -6,7 +6,7 @@
         const idToken = localStorage.getItem('idToken'); // Получение токена из localStorage
         const accessToken = localStorage.getItem('accessToken');
 
-        const response = await fetch('http://127.0.0.1:5000/solarYearInfo', {
+        const response = await fetch('https://Astrologi.onrender.com/solarYearInfo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
